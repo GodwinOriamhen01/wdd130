@@ -16,7 +16,61 @@
     <main>
       <div class="content-box">
         <!-- Add your devotional content here -->
-         Add your table and your form here.
+         <h2>Favorite BYU-I Devotionals</h2>
+         <table>
+          <thead>
+            <tr>
+              <th>Speaker</th>
+              <th>Title</th>
+              <th>Locations</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>President Russell M. Nelson</td>
+              <td>The Love and Laws of God</td>
+              <td>BYU-Idaho Center</td>
+              <td>2019</td>
+            </tr>
+            <tr>
+              <td>Elder Jeffrey R. Holland</td>
+              <td>Cast Not Away Therefore Your Confidence</td>
+              <td>BYU-Idaho</td>
+              <td>2020</td>
+            </tr>
+            <tr>
+              <td>Sister Michelle D. Craig</td>
+              <td>Divine Identity and Purpose</td>
+              <td>BYU-Idaho devotional</td>
+              <td>2021</td>
+            </tr>
+          </tbody>
+         </table>
+         <form>
+          <h2>Add a New devotional</h2>
+          <div class="form-group">
+            <label for="speaker"><speaker/label>
+              <input type="text" id="speaker" name="speaker" required>
+
+          </div>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+
+          </div>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" required>
+
+          </div>
+          <div class="form-group">
+            <label for="year">Year</label>
+            <input type="number" id="year" name="year" required>
+
+          </div>
+          <button type="submit">Add devotional</button>
+          </form>
       </div>
     </main>
   </div>
