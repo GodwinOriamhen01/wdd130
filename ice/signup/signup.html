@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Daily Feed Sign Up</title>
+<style>
+  :root{
+    --outer-width: 420px;
+    --navy: #132c6b;
+    --brown: #785f40;
+    --gold: #d4a856;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background: var(--brown);
+    font-family: Georgia, "Times New Roman", serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  /* outer rounded frame */
+  #formContainer{
+    width:var(--outer-width);
+    border-radius:24px;
+    border:10px solid var(--navy);
+    overflow:hidden;
+    background:#fff;
+    display:grid;
+    grid-template-rows: 160px 1fr auto; /* header / form / book row */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  }
+
+  /* header with background image */
+  #formHeader{
+    position:relative;
+    background-image: url("images/jesus_feeds_5000.jpeg");
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#fff;
+  }
+
+  /* subtle dark overlay so white text pops */
+  #formHeader::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35));
+  }
+
+  /* header texts layered above overlay */
+  #formHeader .titleWrap{
+    position:relative; /* above overlay */
+    z-index:1;
+  }
+
+  #formHeader h1{
+    font-size:28px;
+    letter-spacing:1px;
+    margin-bottom:6px;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+  }
+  #formHeader h2{
+    font-size:20px;
+    margin-top:0;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  }
+
+  /* close button top-left */
+  #closeBtn{
+    position:absolute;
+    left:10px;
+    top:10px;
+    z-index:2;
+    width:28px;height:28px;
+    border-radius:6px;
+    border:none;
+    background:#fff;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  /* form body */
+  form{
+    padding:18px 22px;
+    display:grid;
+    gap:10px;
+  }
+
+  form h3{
+    text-align:center;
+    font-size:18px;
+    margin-bottom:2px;
+    font-weight:bold;
+  }
+
+  /* each row: label + control */
+  .row{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    align-items:center;
+    gap:8px;
+  }
+  label{
+    justify-self:end;
+    font-size:14px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"]{
+    width:100%;
+    padding:6px 8px;
+    border:1px solid #9a9a9a;
+    border-radius:4px;
+    font-size:14px;
+  }
+
+  /* radio group aligned inline */
+  .genderGroup{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .genderGroup label{justify-self:auto;margin:0;font-weight:normal}
+
+  /* checkboxes: put them on separate full-width rows */
+  .fullRow{
+    grid-column: 1 / -1;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    justify-content:center;
+  }
+  .fullRow input{margin-left:0}
+
+  /* submit centered */
+  .submitRow{
+    grid-column: 1 / -1;
+    display:flex;
+    justify-content:center;
+    margin-top:6px;
+  }
+  button[type="submit"]{
+    background:#f1f1f1;
+    padding:6px 16px;
+    border:1px solid #9a9a9a;
+    border-radius:6px;
+    cursor:pointer;
+  }
+
+  /* bottom book tiles */
+  #bookSection{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap:4px;
+    background:#000;
+    padding:8px 6px 10px 6px;
+    align-items:end;
+  }
+  .bookTile{
+    text-align:center;
+    background:#111;
+    padding:6px 4px 0 4px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+  }
+  .bookTile img{
+    width:100%;
+    height:64px;
+    object-fit:cover;
+    border-radius:2px;
+    border-bottom: 4px solid #111;
+    box-shadow: inset 0 -6px 0 rgba(0,0,0,0.4);
+  }
+  .bookCaption{
+    color:var(--gold);
+    font-size:11px;
+    margin-top:4px;
+    font-weight:bold;
+    letter-spacing:0.6px;
+  }
+
+  /* small screen tweaks */
+  @media (max-width:480px){
+    #formContainer{width:92vw}
+    .row{grid-template-columns: 1fr}
+    label{justify-self:start;padding-bottom:4px}
+    .fullRow{padding:0 8px}
+  }
+</style>
+</head>
+<body>
+
+  <div id="formContainer" role="dialog" aria-labelledby="signupTitle">
+    <!-- Header -->
+    <div id="formHeader">
+      <button id="closeBtn" aria-label="Close sign up">X</button>
+      <div class="titleWrap">
+        <h1>Daily Feed</h1>
+        <h2>Scripture a Day</h2>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form id="myForm" novalidate>
+      <h3 id="signupTitle">Sign Up for Daily Scripture Feed</h3>
+
+      <div class="row">
+        <label for="username">User Name:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+
+      <div class="row">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+
+      <div class="row">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="row">
+        <label>Gender:</label>
+        <div class="genderGroup" aria-label="gender choice">
+          <input type="radio" id="male" name="gender" value="male" required>
+          <label for="male">Male</label>
+
+          <input type="radio" id="female" name="gender" value="female" required>
+          <label for="female">Female</label>
+        </div>
+      </div>
+
+      <div class="fullRow">
+        <input type="checkbox" id="newsletter" name="newsletter">
+        <label for="newsletter">Subscribe to newsletter</label>
+      </div>
+
+      <div class="fullRow">
+        <input type="checkbox" id="conditions" name="conditions" required>
+        <label for="conditions">I acknowledge the terms and conditions</label>
+      </div>
+
+      <div class="submitRow">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <!-- Bottom book images -->
+    <div id="bookSection" aria-hidden="false">
+      <div class="bookTile" title="Old Testament">
+        <img src="images/old_testament.webp" alt="Old Testament cover">
+      </div>
+
+      <div class="bookTile" title="New Testament">
+        <img src="images/new_testament.webp" alt="New Testament cover">
+      </div>
+
+      <div class="bookTile" title="Book of Mormon">
+        <img src="images/book_of_mormon.webp" alt="Book of Mormon cover">
+      </div>
+
+      <div class="bookTile" title="Doctrine and Covenants">
+        <img src="images/doctrine_and_covenants.webp" alt="Doctrine and Covenants cover">
+      </div>
+
+      <div class="bookTile" title="Pearl of Great Price">
+        <img src="images/pearl_of_great_price.webp" alt="Pearl of Great Price cover">
+      </div>
+    </div>
+  </div>
+
+<script>
+  // close button
+  document.getElementById("closeBtn").addEventListener("click", function () {
+    document.getElementById("formContainer").style.display = "none";
+  });
+
+  // Basic submit preview behavior
+  const form = document.getElementById('myForm');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const entries = [];
+    for (const [k,v] of fd.entries()){
+      if (k === 'password') {
+        entries.push(`<strong>${k}</strong>: ${v} (should be encrypted)`);
+      } else {
+        entries.push(`<strong>${k}</strong>: ${v}`);
+      }
+    }
+    const out = document.createElement('div');
+    out.style.position = 'fixed';
+    out.style.left = '50%';
+    out.style.top = '50%';
+    out.style.transform = 'translate(-50%,-50%)';
+    out.style.background = '#fff';
+    out.style.border = '2px solid #333';
+    out.style.padding = '18px';
+    out.style.zIndex = 9999;
+    out.innerHTML = `<h3>Here is the data that would be sent to the server:</h3><ul>${entries.map(i=>'<li>'+i+'</li>').join('')}</ul><div style="text-align:center;margin-top:10px"><button id="closeOut">Close</button></div>`;
+    document.body.appendChild(out);
+    document.getElementById('closeOut').addEventListener('click', ()=> out.remove());
+  });
+</script>
+</body>
+</html>
