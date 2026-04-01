@@ -98,3 +98,13 @@ color: white;
 text-align: center;
 padding: 15px;
 }
+
+.detail p {
+    max-width: 750px;
+    margin: 20px auto;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+.detail h1 {
+    margin-bottom: 20px;
+}
